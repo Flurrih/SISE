@@ -8,7 +8,7 @@ namespace SISE_ONE
 {
     class Board
     {
-        int[,] currentBoard;
+        public int[,] currentBoard;
         List<string> previousSteps;
         int boardSize;
         int[] currentPosition;
@@ -56,26 +56,26 @@ namespace SISE_ONE
             {
                 case 'L':
                     {
-                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] - 1];
-                        currentBoard[currentPosition[1] , currentPosition[0] - 1] = 0;
+                        currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] , currentPosition[1] - 1];
+                        currentBoard[currentPosition[0] , currentPosition[1] - 1] = 0;
                     }
                     break;
                 case 'R':
                     {
-                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] + 1];
-                        currentBoard[currentPosition[1] , currentPosition[0] + 1] = 0;
+                        currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] , currentPosition[1] + 1];
+                        currentBoard[currentPosition[0] , currentPosition[1] + 1] = 0;
                     }
                     break;
                 case 'D':
                     {
-                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] + 1, currentPosition[0]];
-                        currentBoard[currentPosition[1] + 1, currentPosition[0] ] = 0;
+                        currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] + 1, currentPosition[1]];
+                        currentBoard[currentPosition[0] + 1, currentPosition[1] ] = 0;
                     }
                     break;
                 case 'U':
                     {
-                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] - 1, currentPosition[0]];
-                        currentBoard[currentPosition[1] - 1, currentPosition[0]] = 0;
+                        currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] - 1, currentPosition[1]];
+                        currentBoard[currentPosition[0] - 1, currentPosition[1]] = 0;
                     }
                     break;
 
@@ -85,7 +85,7 @@ namespace SISE_ONE
 
         public bool CanGoDown()
         {
-            if (currentPosition[1] < boardSize - 1)
+            if (currentPosition[0] < boardSize - 1)
             {
                 Console.WriteLine("Can Go Down");
                 return true;
@@ -96,7 +96,7 @@ namespace SISE_ONE
 
         public bool CanGoUp()
         {
-            if (currentPosition[1] > 0)
+            if (currentPosition[0] > 0)
             {
                 Console.WriteLine("Can Go Up");
                 return true;
@@ -107,7 +107,7 @@ namespace SISE_ONE
 
         public bool CanGoRight()
         {
-            if (currentPosition[0] < boardSize - 1)
+            if (currentPosition[1] < boardSize - 1)
             {
                 Console.WriteLine("Can Go Right");
                 return true;
@@ -118,7 +118,7 @@ namespace SISE_ONE
 
         public bool CanGoLeft()
         {
-            if (currentPosition[0] > 0)
+            if (currentPosition[1] > 0)
             {
                 Console.WriteLine("Can Go Left");
                 return true;

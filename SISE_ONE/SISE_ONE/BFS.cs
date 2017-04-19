@@ -10,6 +10,7 @@ namespace SISE_ONE
     {
 
         Queue<Board> boardsQueue;
+        List<Board> doneBoards;
         Board puzzleBoard;
         public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
         {
@@ -23,41 +24,62 @@ namespace SISE_ONE
             }
             else
             {
-                SeekDirections("LUDR");
+                SeekDirections("LUDR", puzzleBoard);
+
+                while(boardsQueue.Count > 0)
+                {
+                    if(SearchQueue("LUDR"))
+                    {
+                        Console.WriteLine("Leaving loop... Jobs done");
+                        break;
+                    }
+                }
             }
         }
 
-        void SeekDirections(string order)
+        void SeekDirections(string order, Board b)
         {
+            b.FindEmpty(b.currentBoard);
             foreach (char ch in order)
             {
                 switch (ch)
                 {
                     case 'L':
-                        if(puzzleBoard.CanGoLeft())
-                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        if(b.CanGoLeft())
+                            boardsQueue.Enqueue(new Board(b, 'L'));
                         break;
                     case 'R':
-                        if (puzzleBoard.CanGoRight())
-                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        if (b.CanGoRight())
+                            boardsQueue.Enqueue(new Board(b, 'R'));
                         break;
                     case 'U':
-                        if (puzzleBoard.CanGoUp())
-                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        if (b.CanGoUp())
+                            boardsQueue.Enqueue(new Board(b, 'U'));
                         break;
                     case 'D':
-                        if (puzzleBoard.CanGoDown())
-                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        if (b.CanGoDown())
+                            boardsQueue.Enqueue(new Board(b, 'D'));
                         break;
                 }
                 
             }
-            foreach (var board in boardsQueue)
+            foreach (var item in boardsQueue)
             {
-                Console.WriteLine();
-                board.PrintCurrentBoard();
+                //Console.WriteLine();
+                //item.PrintCurrentBoard();
             }
         }
         
+        bool SearchQueue(string order)
+        {
+            Board currBoard = boardsQueue.Dequeue();
+            if (currBoard.IsSolved())
+            {
+                Console.WriteLine("Puzzle is already solved!");
+                return true;
+            }
+            SeekDirections(order, currBoard);
+            return false;
+        }
     }
 }
