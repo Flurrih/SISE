@@ -23,7 +23,7 @@ namespace SISE_ONE
             }
             else
             {
-                SeekDirections("LU");
+                SeekDirections("LUDR");
             }
         }
 
@@ -31,7 +31,26 @@ namespace SISE_ONE
         {
             foreach (char ch in order)
             {
-                boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                switch (ch)
+                {
+                    case 'L':
+                        if(puzzleBoard.CanGoLeft())
+                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        break;
+                    case 'R':
+                        if (puzzleBoard.CanGoRight())
+                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        break;
+                    case 'U':
+                        if (puzzleBoard.CanGoUp())
+                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        break;
+                    case 'D':
+                        if (puzzleBoard.CanGoDown())
+                            boardsQueue.Enqueue(new Board(puzzleBoard, ch));
+                        break;
+                }
+                
             }
             foreach (var board in boardsQueue)
             {

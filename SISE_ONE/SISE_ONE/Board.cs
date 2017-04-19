@@ -55,28 +55,24 @@ namespace SISE_ONE
             switch (direction)
             {
                 case 'L':
-                    if(CanGoLeft())
                     {
                         currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] - 1];
                         currentBoard[currentPosition[1] , currentPosition[0] - 1] = 0;
                     }
                     break;
                 case 'R':
-                    if(CanGoRight())
                     {
                         currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] + 1];
                         currentBoard[currentPosition[1] , currentPosition[0] + 1] = 0;
                     }
                     break;
                 case 'D':
-                    if(CanGoDown())
                     {
                         currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] + 1, currentPosition[0]];
                         currentBoard[currentPosition[1] + 1, currentPosition[0] ] = 0;
                     }
                     break;
                 case 'U':
-                    if(CanGoUp())
                     {
                         currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] - 1, currentPosition[0]];
                         currentBoard[currentPosition[1] - 1, currentPosition[0]] = 0;
@@ -84,8 +80,7 @@ namespace SISE_ONE
                     break;
 
             }
-
-            //return new Board(3, tempPuzzle);
+            
         }
 
         public bool CanGoDown()
