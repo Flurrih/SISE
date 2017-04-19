@@ -8,7 +8,7 @@ namespace SISE_ONE
 {
     abstract class SolveMethod
     {
-        public void Solve(int[,] puzzleToSolve, int puzzleSize)
+        public virtual void Solve(int[,] puzzleToSolve, int puzzleSize)
         {
 
         }
