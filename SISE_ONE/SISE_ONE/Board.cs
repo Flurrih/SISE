@@ -49,7 +49,7 @@ namespace SISE_ONE
         {
             this.boardSize = board.boardSize;
             currentPosition = new int[2];
-            currentBoard = board.currentBoard;
+            currentBoard = (int[,])board.currentBoard.Clone();
             FindEmpty(currentBoard);
             
             switch (direction)
