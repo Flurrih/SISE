@@ -10,29 +10,12 @@ namespace SISE_ONE
     {
         static void Main(string[] args)
         {
+            SolveMethod method;
 
-            int[,] targetBoard =
-            {
-                {1,2,3 },
-                {4,5,6 },
-                {7,8,0 }
-            };
-            int[,] puzzleShuffled =
-            {
-                {1,2,3 },
-                {4,6,8 },
-                {7,5,0 }
-            };
-            int[,] puzzleSolved =
-            {
-                {1,2,3 },
-                {4,5,6 },
-                {7,8,0 }
-            };
-            Board board = new Board(3, puzzleSolved);
 
-            board.PrintCurrentBoard();
+            method = new BFS();
 
+            method.Solve(Boards.puzzleShuffled, 3, null);
 
 
             Console.ReadKey();

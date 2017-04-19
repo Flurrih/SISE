@@ -9,18 +9,28 @@ namespace SISE_ONE
     class Board
     {
         int[,] currentBoard;
-        //List<string> previousSteps;
+        List<string> previousSteps;
         int boardSize;
+        int[] currentPosition;
+
         public Board(int boardSize, int[,] board)
         {
             this.boardSize = boardSize;
             currentBoard = board;
+            currentPosition = new int[2];
+            FindEmpty(currentBoard);
         }
         public void PrintCurrentBoard()
         {
             for (int i = 0; i < boardSize; i++)
+            {
                 for (int j = 0; j < boardSize; j++)
-                    Console.WriteLine(currentBoard[i, j]);
+                {
+                    Console.Write(currentBoard[i, j]);
+                }
+                Console.WriteLine();
+            }
+
         }
         public bool IsSolved()
         {
@@ -35,7 +45,108 @@ namespace SISE_ONE
             return true;
         }
 
+        public Board(Board board , char direction)
+        {
+            this.boardSize = board.boardSize;
+            currentPosition = new int[2];
+            currentBoard = board.currentBoard;
+            FindEmpty(currentBoard);
+            
+            switch (direction)
+            {
+                case 'L':
+                    if(CanGoLeft())
+                    {
+                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] - 1];
+                        currentBoard[currentPosition[1] , currentPosition[0] - 1] = 0;
+                    }
+                    break;
+                case 'R':
+                    if(CanGoRight())
+                    {
+                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] , currentPosition[0] + 1];
+                        currentBoard[currentPosition[1] , currentPosition[0] + 1] = 0;
+                    }
+                    break;
+                case 'D':
+                    if(CanGoDown())
+                    {
+                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] + 1, currentPosition[0]];
+                        currentBoard[currentPosition[1] + 1, currentPosition[0] ] = 0;
+                    }
+                    break;
+                case 'U':
+                    if(CanGoUp())
+                    {
+                        currentBoard[currentPosition[1], currentPosition[0]] = currentBoard[currentPosition[1] - 1, currentPosition[0]];
+                        currentBoard[currentPosition[1] - 1, currentPosition[0]] = 0;
+                    }
+                    break;
 
+            }
+
+            //return new Board(3, tempPuzzle);
+        }
+
+        public bool CanGoDown()
+        {
+            if (currentPosition[1] < boardSize - 1)
+            {
+                Console.WriteLine("Can Go Down");
+                return true;
+            }
+            Console.WriteLine("Can't Go Down");
+            return false;
+        }
+
+        public bool CanGoUp()
+        {
+            if (currentPosition[1] > 0)
+            {
+                Console.WriteLine("Can Go Up");
+                return true;
+            }
+            Console.WriteLine("Can't Go Up");
+            return false;
+        }
+
+        public bool CanGoRight()
+        {
+            if (currentPosition[0] < boardSize - 1)
+            {
+                Console.WriteLine("Can Go Right");
+                return true;
+            }
+            Console.WriteLine("Can't Go Right");
+            return false;
+        }
+
+        public bool CanGoLeft()
+        {
+            if (currentPosition[0] > 0)
+            {
+                Console.WriteLine("Can Go Left");
+                return true;
+            }
+
+            Console.WriteLine("Can't Go Left");
+            return false;
+        }
+
+        public void FindEmpty(int[,] board)
+        {
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    if (currentBoard[i, j].Equals(0))
+                    {
+                        currentPosition[0] = i;
+                        currentPosition[1] = j;
+                    }
+                }
+            }
+        }
 
     }
 }
