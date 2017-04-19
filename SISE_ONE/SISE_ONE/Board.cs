@@ -22,18 +22,20 @@ namespace SISE_ONE
                 for (int j = 0; j < boardSize; j++)
                     Console.WriteLine(currentBoard[i, j]);
         }
-        public bool IsSolved(int[,] targetBoard)
+        public bool IsSolved()
         {
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    if (currentBoard[i, j] != targetBoard[i, j])
+                    if (currentBoard[i, j] != Boards.targetBoard[i, j])
                         return false;
                 }
             }
             return true;
         }
+
+
 
     }
 }
