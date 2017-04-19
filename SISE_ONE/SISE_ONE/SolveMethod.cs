@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SISE_ONE
 {
-    abstract class SolveMethod
+    public class SolveMethod
     {
         public virtual void Solve(int[,] puzzleToSolve, int puzzleSize)
         {
