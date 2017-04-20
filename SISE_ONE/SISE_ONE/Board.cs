@@ -9,7 +9,7 @@ namespace SISE_ONE
     class Board
     {
         public int[,] currentBoard;
-        List<string> previousSteps;
+        public string previousSteps;
         int boardSize;
         int[] currentPosition;
 
