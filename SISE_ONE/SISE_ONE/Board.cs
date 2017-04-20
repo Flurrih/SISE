@@ -148,5 +148,37 @@ namespace SISE_ONE
             }
         }
 
+        public override bool Equals(Object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            Board puzzleOther = other as Board;
+
+            return currentBoard.Rank == puzzleOther.currentBoard.Rank &&
+            Enumerable.Range(0, currentBoard.Rank).All(dimension => currentBoard.GetLength(dimension) == puzzleOther.currentBoard.GetLength(dimension)) &&
+            currentBoard.Cast<int>().SequenceEqual(puzzleOther.currentBoard.Cast<int>());
+
+        }
+
+        public override int GetHashCode()
+        {
+            // TODO: write your implementation of GetHashCode() here
+            //throw new NotImplementedException();
+
+            int hash = 17;
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    hash = hash * 31 + currentBoard[i, j];
+                }
+            }
+            return hash;
+            //return tabState.GetHashCode();
+        }
+
     }
 }

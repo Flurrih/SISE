@@ -10,11 +10,12 @@ namespace SISE_ONE
     {
 
         Queue<Board> boardsQueue;
-        List<Board> doneBoards;
+        List<Board> finishedBoards;
         Board puzzleBoard;
         public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
         {
             boardsQueue = new Queue<Board>();
+            finishedBoards = new List<Board>();
             puzzleBoard = new Board(puzzleSize, puzzleToSolve);
             puzzleBoard.PrintCurrentBoard();
             if(puzzleBoard.IsSolved())
@@ -25,7 +26,7 @@ namespace SISE_ONE
             else
             {
                 SeekDirections("LUDR", puzzleBoard);
-
+                
                 while(boardsQueue.Count > 0)
                 {
                     if(SearchQueue("LUDR"))
@@ -34,6 +35,7 @@ namespace SISE_ONE
                         break;
                     }
                 }
+                Console.WriteLine("LEft");
             }
         }
 
@@ -46,19 +48,19 @@ namespace SISE_ONE
                 {
                     case 'L':
                         if(b.CanGoLeft())
-                            boardsQueue.Enqueue(new Board(b, 'L'));
+                            AddBoardToQueue(new Board(b, 'L'));
                         break;
                     case 'R':
                         if (b.CanGoRight())
-                            boardsQueue.Enqueue(new Board(b, 'R'));
+                            AddBoardToQueue(new Board(b, 'R'));
                         break;
                     case 'U':
                         if (b.CanGoUp())
-                            boardsQueue.Enqueue(new Board(b, 'U'));
+                            AddBoardToQueue(new Board(b, 'U'));
                         break;
                     case 'D':
                         if (b.CanGoDown())
-                            boardsQueue.Enqueue(new Board(b, 'D'));
+                            AddBoardToQueue(new Board(b, 'D'));
                         break;
                 }
                 
@@ -75,11 +77,45 @@ namespace SISE_ONE
             Board currBoard = boardsQueue.Dequeue();
             if (currBoard.IsSolved())
             {
+                //Console.WriteLine("DLA OLI:");
+                //currBoard.PrintCurrentBoard();
                 Console.WriteLine("Puzzle is already solved!");
                 return true;
+
+                //TODO Stopwatch
             }
             SeekDirections(order, currBoard);
+            AddBoardToFinished(currBoard);
             return false;
         }
+
+        void AddBoardToFinished(Board board)
+        {
+            if(!finishedBoards.Contains(board))
+            {
+                finishedBoards.Add(board);
+                //board.PrintCurrentBoard();
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+        }
+
+        void AddBoardToQueue(Board board)
+        {
+            if(!finishedBoards.Contains(board) && !boardsQueue.Contains(board))
+            {
+                boardsQueue.Enqueue(board);
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+
+            
+        }
+
     }
 }
