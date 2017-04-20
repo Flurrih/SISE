@@ -72,7 +72,7 @@ namespace SISE_ONE
             Board currBoard = boardsQueue.Dequeue();
             if (currBoard.IsSolved())
             {
-                Console.WriteLine("Puzzle is already solved!");
+                Console.WriteLine("Puzzle is already solved!: " + currBoard.previousSteps);
                 return true;
 
                 //TODO Stopwatch

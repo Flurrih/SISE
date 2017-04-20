@@ -10,9 +10,10 @@ namespace SISE_ONE
     {
         public static int[,] targetBoard =
         {
-                {1,2,3 },
-                {4,5,6 },
-                {7,8,0 }
+                {1,2,3, 4},
+                {5, 6, 7, 8 },
+                {9, 10, 11, 12 },
+                {13, 14, 15 , 0 }
         };
         public static int[,] puzzleShuffled =
         {
@@ -22,9 +23,10 @@ namespace SISE_ONE
         };
         public static int[,] puzzleShuffled2 =
         {
-                {1,3,7 },
-                {8,2,0 },
-                {5,4,6 }
+                {1,2,3, 4},
+                {5, 6, 7, 8 },
+                {10, 13, 11, 12 },
+                {9, 14, 0 , 15 }
         };
         public static int[,] puzzleSolved =
         {

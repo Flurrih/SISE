@@ -15,7 +15,7 @@ namespace SISE_ONE
 
             method = new BFS();
 
-            method.Solve(Boards.puzzleShuffled, 3, null);
+            method.Solve(Boards.puzzleShuffled2, 4, null);
 
 
             Console.ReadKey();
