@@ -65,11 +65,6 @@ namespace SISE_ONE
                 }
                 
             }
-            foreach (var item in boardsQueue)
-            {
-                //Console.WriteLine();
-                //item.PrintCurrentBoard();
-            }
         }
         
         bool SearchQueue(string order)
@@ -77,8 +72,6 @@ namespace SISE_ONE
             Board currBoard = boardsQueue.Dequeue();
             if (currBoard.IsSolved())
             {
-                //Console.WriteLine("DLA OLI:");
-                //currBoard.PrintCurrentBoard();
                 Console.WriteLine("Puzzle is already solved!");
                 return true;
 
@@ -94,12 +87,6 @@ namespace SISE_ONE
             if(!finishedBoards.Contains(board))
             {
                 finishedBoards.Add(board);
-                //board.PrintCurrentBoard();
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine();
             }
         }
 
@@ -109,12 +96,6 @@ namespace SISE_ONE
             {
                 boardsQueue.Enqueue(board);
             }
-            else
-            {
-                Console.WriteLine();
-            }
-
-            
         }
 
     }

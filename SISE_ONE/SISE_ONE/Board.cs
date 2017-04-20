@@ -92,10 +92,8 @@ namespace SISE_ONE
         {
             if (currentPosition[0] < boardSize - 1)
             {
-                Console.WriteLine("Can Go Down");
                 return true;
             }
-            Console.WriteLine("Can't Go Down");
             return false;
         }
 
@@ -103,10 +101,8 @@ namespace SISE_ONE
         {
             if (currentPosition[0] > 0)
             {
-                Console.WriteLine("Can Go Up");
                 return true;
             }
-            Console.WriteLine("Can't Go Up");
             return false;
         }
 
@@ -114,10 +110,8 @@ namespace SISE_ONE
         {
             if (currentPosition[1] < boardSize - 1)
             {
-                Console.WriteLine("Can Go Right");
                 return true;
             }
-            Console.WriteLine("Can't Go Right");
             return false;
         }
 
@@ -125,11 +119,8 @@ namespace SISE_ONE
         {
             if (currentPosition[1] > 0)
             {
-                Console.WriteLine("Can Go Left");
                 return true;
             }
-
-            Console.WriteLine("Can't Go Left");
             return false;
         }
 
