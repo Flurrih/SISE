@@ -51,6 +51,7 @@ namespace SISE_ONE
             currentPosition = new int[2];
             currentBoard = (int[,])board.currentBoard.Clone();
             FindEmpty(currentBoard);
+            this.previousSteps = board.previousSteps;
             
             switch (direction)
             {
@@ -58,24 +59,28 @@ namespace SISE_ONE
                     {
                         currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] , currentPosition[1] - 1];
                         currentBoard[currentPosition[0] , currentPosition[1] - 1] = 0;
+                        previousSteps += 'L';
                     }
                     break;
                 case 'R':
                     {
                         currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] , currentPosition[1] + 1];
                         currentBoard[currentPosition[0] , currentPosition[1] + 1] = 0;
+                        previousSteps += 'R';
                     }
                     break;
                 case 'D':
                     {
                         currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] + 1, currentPosition[1]];
                         currentBoard[currentPosition[0] + 1, currentPosition[1] ] = 0;
+                        previousSteps += 'D';
                     }
                     break;
                 case 'U':
                     {
                         currentBoard[currentPosition[0], currentPosition[1]] = currentBoard[currentPosition[0] - 1, currentPosition[1]];
                         currentBoard[currentPosition[0] - 1, currentPosition[1]] = 0;
+                        previousSteps += 'U';
                     }
                     break;
 
