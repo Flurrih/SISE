@@ -12,5 +12,9 @@ namespace SISE_ONE
         {
 
         }
+        public virtual void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
+        {
+
+        }
     }
 }

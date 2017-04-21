@@ -12,7 +12,7 @@ namespace SISE_ONE
         Queue<Board> boardsQueue;
         List<Board> finishedBoards;
         Board puzzleBoard;
-        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
+        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
         {
             boardsQueue = new Queue<Board>();
             finishedBoards = new List<Board>();
@@ -25,6 +25,7 @@ namespace SISE_ONE
             }
             else
             {
+                Time.StartTimer();
                 SeekDirections("LUDR", puzzleBoard);
                 
                 while(boardsQueue.Count > 0)
@@ -35,7 +36,7 @@ namespace SISE_ONE
                         break;
                     }
                 }
-                Console.WriteLine("LEft");
+                Console.WriteLine(Time.StopTimer());
             }
         }
 
