@@ -12,18 +12,23 @@ namespace SISE_ONE
         private List<Board> closedSet;
 
         private string heuristic;
+        private string order;
 
         public Astar()
         {
             openSet = new Queue<Board>();
             closedSet = new List<Board>();
             heuristic = "manh";
+            order = "LUDR";
         }
 
-        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
+        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
-            if (arg != null)
-                heuristic = arg;
+            if (arg[0] != null)
+                heuristic = arg[0];
+
+            if (arg[1] != null)
+                order = arg[1];
 
             Board board = new Board(puzzleSize, puzzleToSolve);
             openSet.Enqueue(board);
@@ -43,7 +48,7 @@ namespace SISE_ONE
                 }
 
                 closedSet.Add(first);
-                foreach (var item in GetNeighbours(first, "LUDR"))
+                foreach (var item in GetNeighbours(first, order))
                 {
                     if (closedSet.Contains(item))
                     {

@@ -15,8 +15,8 @@ namespace SISE_ONE
 
             method = new Astar();
 
-            method.Solve(Boards.puzzleShuffled2, 4, "hamm");
-            method.Solve(Boards.puzzleShuffled2, 4, "manh");
+            method.Solve(Boards.puzzleShuffled2, 4, new string[] { "manh", null });
+            method.Solve(Boards.puzzleShuffled2, 4, new string[] { "hamm", null });
 
 
             Console.ReadKey();

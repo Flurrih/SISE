@@ -12,7 +12,7 @@ namespace SISE_ONE
         Queue<Board> boardsQueue;
         List<Board> finishedBoards;
         Board puzzleBoard;
-        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
+        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
             boardsQueue = new Queue<Board>();
             finishedBoards = new List<Board>();
