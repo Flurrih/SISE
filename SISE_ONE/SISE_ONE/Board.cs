@@ -18,15 +18,25 @@ namespace SISE_ONE
             this.boardSize = boardSize;
             currentBoard = board;
             currentPosition = new int[2];
+            previousSteps = "";
             FindEmpty(currentBoard);
         }
+
+        public Board(Board board)
+        {
+            currentBoard = board.currentBoard;
+            previousSteps = board.previousSteps;
+            boardSize = board.boardSize;
+            currentPosition = board.currentPosition;
+        }
+
         public void PrintCurrentBoard()
         {
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    Console.Write(currentBoard[i, j]);
+                    Console.Write(currentBoard[i, j] + " ");
                 }
                 Console.WriteLine();
             }

@@ -8,14 +8,14 @@ namespace SISE_ONE
 {
     class Astar : SolveMethod
     {
-        private SortedList<int, Board> openSet;
+        private Queue<Board> openSet;
         private List<Board> closedSet;
 
         private string heuristic;
 
         public Astar()
         {
-            openSet = new SortedList<int, Board>();
+            openSet = new Queue<Board>();
             closedSet = new List<Board>();
             heuristic = "manh";
         }
@@ -26,11 +26,35 @@ namespace SISE_ONE
                 heuristic = arg;
 
             Board board = new Board(puzzleSize, puzzleToSolve);
-            openSet.Add(f(board), board);
-
+            openSet.Enqueue(board);
+            
             while(openSet.Count > 0)
             {
-                
+                openSet = ArrayToQueue(openSet.OrderBy(b => f(b)).ToArray());
+                Board first = openSet.Dequeue();
+                first.PrintCurrentBoard();
+                Console.WriteLine();
+                if (first.IsSolved())
+                {
+                    
+                    Console.WriteLine(first.previousSteps);
+                    
+                    return;
+                }
+
+                closedSet.Add(first);
+                foreach (var item in GetNeighbours(first, "LUDR"))
+                {
+                    if (closedSet.Contains(item))
+                    {
+                        continue;
+                    }
+
+                    if (!openSet.Contains(item))
+                    {
+                        openSet.Enqueue(item);
+                    }
+                }
             }            
         }
 
@@ -89,6 +113,42 @@ namespace SISE_ONE
                 }
             }
             return distance;
+        }
+
+        private List<Board> GetNeighbours(Board b, string order)
+        {
+            b.FindEmpty(b.currentBoard);
+            List<Board> neighbours = new List<Board>();
+            foreach (var item in order)
+            {
+                switch (item)
+                {
+                    case 'L':
+                        if (b.CanGoLeft())
+                            neighbours.Add(new Board(b, 'L'));
+                        break;
+                    case 'R':
+                        if (b.CanGoRight())
+                            neighbours.Add(new Board(b, 'R'));
+                        break;
+                    case 'U':
+                        if (b.CanGoUp())
+                            neighbours.Add(new Board(b, 'U'));
+                        break;
+                    case 'D':
+                        if (b.CanGoDown())
+                            neighbours.Add(new Board(b, 'D'));
+                        break;
+                }
+            }
+            return neighbours;
+        }
+
+        private Queue<T> ArrayToQueue<T>(T[] items)
+        {
+            var queue = new Queue<T>();
+            Array.ForEach(items, i => queue.Enqueue(i));
+            return queue;
         }
     }
 }

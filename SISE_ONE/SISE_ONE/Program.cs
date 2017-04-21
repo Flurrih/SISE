@@ -13,9 +13,10 @@ namespace SISE_ONE
             SolveMethod method;
 
 
-            method = new BFS();
+            method = new Astar();
 
-            method.Solve(Boards.puzzleShuffled2, 4, null);
+            method.Solve(Boards.puzzleShuffled2, 4, "hamm");
+            method.Solve(Boards.puzzleShuffled2, 4, "manh");
 
 
             Console.ReadKey();
