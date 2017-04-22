@@ -37,16 +37,9 @@ namespace SISE_ONE
             //solveMethod.Solve(Boards.puzzleShuffled2, 4, order);
             //method.Solve(Boards.puzzleShuffled2, 4, new string[] { "hamm", null });
 
-            int[,] b = FileReader.ReadBoard("4x4_01_00001.txt");
+            //int[,] b = FileReader.ReadBoard("4x4_01_00001.txt");
+            solveMethod.Solve(FileReader.ReadBoard("4x4_01_00001.txt"), 4, "LUDR");
 
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    Console.Write(b + " ");
-                }
-                Console.WriteLine();
-            }
             Console.ReadKey();
         }
     }
