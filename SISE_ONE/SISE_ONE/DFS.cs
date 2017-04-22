@@ -42,7 +42,6 @@ namespace SISE_ONE
                 Console.WriteLine(Time.StopTimer());
             }
         }
-
         void SeekDirections(string order, Board b)
         {
             b.FindEmpty(b.currentBoard);

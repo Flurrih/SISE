@@ -14,8 +14,12 @@ namespace SISE_ONE
         Board puzzleBoard;
         int processed = 1;
         int visited = 1;
-        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
+        string solutionName;
+        string statName;
+        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
+            solutionName = arg[1];
+            statName = arg[2];
             boardsQueue = new Queue<Board>();
             finishedBoards = new HashSet<Board>();
             puzzleBoard = new Board(puzzleSize, puzzleToSolve);
@@ -28,19 +32,20 @@ namespace SISE_ONE
             else
             {
                 Time.StartTimer();
-                SeekDirections(arg, puzzleBoard);
+                SeekDirections(arg[0], puzzleBoard);
                 
                 while(boardsQueue.Count > 0)
                 {
-                    if(SearchQueue(arg))
+                    if(SearchQueue(arg[0]))
                     {
                         Console.WriteLine("Leaving loop... Jobs done");
                         break;
                     }
                 }
-                Console.WriteLine(Time.StopTimer());
+                //Console.WriteLine(Time.StopTimer());
             }
         }
+        
 
         void SeekDirections(string order, Board b)
         {
@@ -76,7 +81,8 @@ namespace SISE_ONE
             processed++;
             if (currBoard.IsSolved())
             {
-                Console.WriteLine("Puzzle is already solved!: " + currBoard.previousSteps);
+                FileWriter.WriteSolution(currBoard.previousSteps, solutionName);
+                FileWriter.WriteStat(currBoard.previousSteps.Length, visited, processed, puzzleBoard.depth, (float)Time.StopTimer(), statName);
                 return true;
             }
             else

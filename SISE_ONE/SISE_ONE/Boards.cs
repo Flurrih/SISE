@@ -43,5 +43,10 @@ namespace SISE_ONE
             { 9,0,11,8, },
             { 13,14,15,12 }
         };
+
+        public static int[,] puzzleNonSolvable3x3 =  
+            { { 0, 8, 5 },
+            { 7, 4, 1 },
+            { 2, 3, 6 } };
     }
 }

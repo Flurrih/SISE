@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SISE_ONE
 {
-    class Board
+    public class Board
     {
         public int[,] currentBoard;
         public string previousSteps;
@@ -168,9 +168,6 @@ namespace SISE_ONE
 
         public override int GetHashCode()
         {
-            // TODO: write your implementation of GetHashCode() here
-            //throw new NotImplementedException();
-
             int hash = 17;
             for (int i = 0; i < boardSize; i++)
             {
@@ -180,7 +177,6 @@ namespace SISE_ONE
                 }
             }
             return hash;
-            //return tabState.GetHashCode();
         }
 
     }
