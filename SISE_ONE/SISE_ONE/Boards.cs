@@ -25,15 +25,23 @@ namespace SISE_ONE
         public static int[,] puzzleShuffled2 =
         {
                 {1,2,3, 4},
-                {5, 6, 7, 8 },
-                {10, 13, 11, 12 },
-                {9, 14, 0 , 15 }
+                {5, 6, 8, 12 },
+                {9, 11, 7, 0 },
+                {13, 10, 14 , 15 }
         };
         public static int[,] puzzleSolved =
         {
                 {1,2,3 },
                 {4,5,6 },
                 {7,8,0 }
+        };
+
+        public static int[,] puzzleShuffled3 =
+            { 
+            { 1,6,2,3, },
+            { 5,10,7,4, },
+            { 9,0,11,8, },
+            { 13,14,15,12 }
         };
     }
 }

@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace SISE_ONE
 {
-    class BFS : SolveMethod
+    class DFS : SolveMethod
     {
-
-        Queue<Board> boardsQueue;
+        int maxDepth;
+        Stack<Board> boardsHashSet;
         HashSet<Board> finishedBoards;
         Board puzzleBoard;
         int processed = 1;
         int visited = 1;
         public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
         {
-            boardsQueue = new Queue<Board>();
+            maxDepth = 25;
+            boardsHashSet = new Stack<Board>();
             finishedBoards = new HashSet<Board>();
             puzzleBoard = new Board(puzzleSize, puzzleToSolve);
             puzzleBoard.PrintCurrentBoard();
-            if(puzzleBoard.IsSolved())
+            if (puzzleBoard.IsSolved())
             {
                 Console.WriteLine("Puzzle is already solved!");
                 return;
@@ -28,11 +29,11 @@ namespace SISE_ONE
             else
             {
                 Time.StartTimer();
-                SeekDirections(arg, puzzleBoard);
-                
-                while(boardsQueue.Count > 0)
+                SeekDirections("LUDR", puzzleBoard);
+
+                while (boardsHashSet.Count > 0)
                 {
-                    if(SearchQueue(arg))
+                    if (SearchQueue("LUDR"))
                     {
                         Console.WriteLine("Leaving loop... Jobs done");
                         break;
@@ -50,7 +51,7 @@ namespace SISE_ONE
                 switch (ch)
                 {
                     case 'L':
-                        if(b.CanGoLeft())
+                        if (b.CanGoLeft())
                             AddBoardToQueue(new Board(b, 'L'));
                         break;
                     case 'R':
@@ -66,29 +67,33 @@ namespace SISE_ONE
                             AddBoardToQueue(new Board(b, 'D'));
                         break;
                 }
-                
+
             }
         }
-        
+
         bool SearchQueue(string order)
         {
-            Board currBoard = boardsQueue.Dequeue();
+            Board currBoard = boardsHashSet.Pop();
             processed++;
             if (currBoard.IsSolved())
             {
                 Console.WriteLine("Puzzle is already solved!: " + currBoard.previousSteps);
+                Console.WriteLine(processed + " " + visited);
                 return true;
             }
-            else
-            SeekDirections(order, currBoard);
-            AddBoardToFinished(currBoard);
-            visited++;
+            if(maxDepth > currBoard.depth)
+            {
+                SeekDirections(order, currBoard);
+                AddBoardToFinished(currBoard);
+                visited++;
+            }
             return false;
+
         }
 
         void AddBoardToFinished(Board board)
         {
-            if(!finishedBoards.Contains(board))
+            if (!finishedBoards.Contains(board))
             {
                 finishedBoards.Add(board);
             }
@@ -96,9 +101,9 @@ namespace SISE_ONE
 
         void AddBoardToQueue(Board board)
         {
-            if(!finishedBoards.Contains(board) && !boardsQueue.Contains(board))
+            if (!finishedBoards.Contains(board) && !boardsHashSet.Contains(board))
             {
-                boardsQueue.Enqueue(board);
+                boardsHashSet.Push(board);
             }
         }
 

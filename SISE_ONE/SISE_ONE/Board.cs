@@ -12,9 +12,10 @@ namespace SISE_ONE
         public string previousSteps;
         int boardSize;
         int[] currentPosition;
-
+        public int depth;
         public Board(int boardSize, int[,] board)
         {
+            depth = 1;
             this.boardSize = boardSize;
             currentBoard = board;
             currentPosition = new int[2];
@@ -40,7 +41,7 @@ namespace SISE_ONE
                 }
                 Console.WriteLine();
             }
-
+            Console.WriteLine();
         }
         public bool IsSolved()
         {
@@ -57,6 +58,7 @@ namespace SISE_ONE
 
         public Board(Board board , char direction)
         {
+            depth = board.depth + 1;
             this.boardSize = board.boardSize;
             currentPosition = new int[2];
             currentBoard = (int[,])board.currentBoard.Clone();
