@@ -10,15 +10,21 @@ namespace SISE_ONE
     {
         int depth;
         int maxDepth;
-        Stack<Board> boardsHashSet;
+        //Stack<Board> boardsHashSet;
+        Board cBoard;
         HashSet<Board> finishedBoards;
         Board puzzleBoard;
         int processed = 1;
         int visited = 1;
-        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string arg)
+
+        string solutionName;
+        string statName;
+        public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
+            solutionName = arg[1];
+            statName = arg[2];
             maxDepth = 25;
-            boardsHashSet = new Stack<Board>();
+            //boardsHashSet = new Stack<Board>();
             finishedBoards = new HashSet<Board>();
             puzzleBoard = new Board(puzzleSize, puzzleToSolve);
             puzzleBoard.PrintCurrentBoard();
@@ -30,16 +36,17 @@ namespace SISE_ONE
             else
             {
                 Time.StartTimer();
-                SeekDirections("LUDR", puzzleBoard);
+                SeekDirections(arg[0], puzzleBoard);
 
-                while (boardsHashSet.Count > 0)
-                {
-                    if (SearchQueue("LUDR"))
+                //while (boardsHashSet.Count > 0)
+                //{
+                    if (SearchQueue(arg[0]))
                     {
                         Console.WriteLine("Leaving loop... Jobs done");
-                        break;
+                        return;
+                        //break;
                     }
-                }
+                //}
                 Console.WriteLine(Time.StopTimer());
             }
         }
@@ -52,19 +59,20 @@ namespace SISE_ONE
                 {
                     case 'L':
                         if (b.CanGoLeft())
-                            AddBoardToQueue(new Board(b, 'L'));
+                            //AddBoardToQueue(new Board(b, 'L'));
+                            cBoard = new Board(b, 'L');
                         break;
                     case 'R':
                         if (b.CanGoRight())
-                            AddBoardToQueue(new Board(b, 'R'));
+                            cBoard = new Board(b, 'R');
                         break;
                     case 'U':
                         if (b.CanGoUp())
-                            AddBoardToQueue(new Board(b, 'U'));
+                            cBoard = new Board(b, 'U');
                         break;
                     case 'D':
                         if (b.CanGoDown())
-                            AddBoardToQueue(new Board(b, 'D'));
+                            cBoard = new Board(b, 'D');
                         break;
                 }
 
@@ -73,7 +81,7 @@ namespace SISE_ONE
 
         bool SearchQueue(string order)
         {
-            Board currBoard = boardsHashSet.Pop();
+            Board currBoard = cBoard;
             visited++;
             if (depth < currBoard.depth)
             {
@@ -83,6 +91,8 @@ namespace SISE_ONE
             {
                 Console.WriteLine("Puzzle is already solved!: " + currBoard.previousSteps);
                 Console.WriteLine(processed + " " + visited);
+                FileWriter.WriteSolution(currBoard.previousSteps, solutionName);
+                FileWriter.WriteStat(currBoard.previousSteps.Length, visited, processed, puzzleBoard.depth, (float)Time.StopTimer(), statName);
                 return true;
             }
             if(maxDepth > currBoard.depth)
@@ -105,10 +115,10 @@ namespace SISE_ONE
 
         void AddBoardToQueue(Board board)
         {
-            if (!finishedBoards.Contains(board) && !boardsHashSet.Contains(board))
-            {
-                boardsHashSet.Push(board);
-            }
+            //if (!finishedBoards.Contains(board) && !boardsHashSet.Contains(board))
+            //{
+            //    boardsHashSet.Push(board);
+            //}
         }
 
     }
