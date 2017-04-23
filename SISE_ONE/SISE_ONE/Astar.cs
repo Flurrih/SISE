@@ -14,6 +14,12 @@ namespace SISE_ONE
         private string heuristic;
         private string order;
 
+        private int visited = 0;
+        private int maxDepth = 0;
+
+        string solutionName;
+        string statName;
+
         public Astar()
         {
             openSet = new Queue<Board>();
@@ -24,12 +30,13 @@ namespace SISE_ONE
 
         public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
+            solutionName = arg[1];
+            statName = arg[2];
+
             if (arg[0] != null)
                 heuristic = arg[0];
 
-            if (arg[1] != null)
-                order = arg[1];
-
+            Time.StartTimer();
             Board board = new Board(puzzleSize, puzzleToSolve);
             openSet.Enqueue(board);
             
@@ -37,17 +44,22 @@ namespace SISE_ONE
             {
                 openSet = ArrayToQueue(openSet.OrderBy(b => f(b)).ToArray());
                 Board first = openSet.Dequeue();
-                first.PrintCurrentBoard();
-                Console.WriteLine();
+                visited++;
+
+                if(first.depth > maxDepth)
+                {
+                    maxDepth = first.depth;
+                }
+
                 if (first.IsSolved())
                 {
-                    
-                    Console.WriteLine(first.previousSteps);
-                    
+                    FileWriter.WriteSolution(first.previousSteps, solutionName);
+                    FileWriter.WriteStat(first.previousSteps.Length, visited, closedSet.Count, maxDepth, (float)Time.StopTimer(), statName);
                     return;
                 }
 
                 closedSet.Add(first);
+                
                 foreach (var item in GetNeighbours(first, order))
                 {
                     if (closedSet.Contains(item))
