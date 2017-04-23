@@ -24,10 +24,7 @@ namespace SISE_ONE
                 case "dfs":
                     solveMethod = new DFS();
                     break;
-                case "manh":
-                    solveMethod = new Astar();
-                    break;
-                case "hamm":
+                case "astr":
                     solveMethod = new Astar();
                     break;
                 default:
@@ -42,7 +39,7 @@ namespace SISE_ONE
             //int[,] b = FileReader.ReadBoard("4x4_01_00001.txt");
 
             int[,] board = FileReader.ReadBoard(boardName);
-            if (IsSolvable(board, 3))
+            if (IsSolvable(board, 4))
             {
                 solveMethod.Solve(board, 4, new string[] { order, solutionName, statName});
             }
@@ -50,8 +47,6 @@ namespace SISE_ONE
             {
                 FileWriter.WriteSolution("-1", solutionName);
             }
-
-            Console.ReadKey();
         }
         public static bool IsSolvable(int[,] board, int size)
         {

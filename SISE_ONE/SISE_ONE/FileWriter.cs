@@ -19,7 +19,7 @@ namespace SISE_ONE
 
         public static void WriteStat(int sol, int visited, int processed, int maxDepth, float time, string filename)
         {
-            string solution = sol + "\r\n" + visited + "\r\n" + processed + "\r\n" + maxDepth + "\r\n" + time;
+            string solution = sol + " " + visited + " " + processed + " " + maxDepth + " " + Math.Round((float)time, 3);
             System.IO.StreamWriter file = new System.IO.StreamWriter("F:/SISE/sise_test/Statistics/" + filename);
             file.WriteLine(solution);
 

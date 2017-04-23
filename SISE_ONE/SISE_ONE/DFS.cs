@@ -8,6 +8,7 @@ namespace SISE_ONE
 {
     class DFS : SolveMethod
     {
+        int depth;
         int maxDepth;
         Stack<Board> boardsHashSet;
         HashSet<Board> finishedBoards;
@@ -73,7 +74,11 @@ namespace SISE_ONE
         bool SearchQueue(string order)
         {
             Board currBoard = boardsHashSet.Pop();
-            processed++;
+            visited++;
+            if (depth < currBoard.depth)
+            {
+                depth = currBoard.depth;
+            }
             if (currBoard.IsSolved())
             {
                 Console.WriteLine("Puzzle is already solved!: " + currBoard.previousSteps);
@@ -84,7 +89,7 @@ namespace SISE_ONE
             {
                 SeekDirections(order, currBoard);
                 AddBoardToFinished(currBoard);
-                visited++;
+                processed++;
             }
             return false;
 

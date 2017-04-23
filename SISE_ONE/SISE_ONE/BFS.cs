@@ -16,6 +16,7 @@ namespace SISE_ONE
         int visited = 1;
         string solutionName;
         string statName;
+        int maxDepth;
         public override void Solve(int[,] puzzleToSolve, int puzzleSize, string[] arg)
         {
             solutionName = arg[1];
@@ -78,7 +79,11 @@ namespace SISE_ONE
         bool SearchQueue(string order)
         {
             Board currBoard = boardsQueue.Dequeue();
-            processed++;
+            visited++;
+            if(maxDepth < currBoard.depth)
+            {
+                maxDepth = currBoard.depth;
+            }
             if (currBoard.IsSolved())
             {
                 FileWriter.WriteSolution(currBoard.previousSteps, solutionName);
@@ -88,7 +93,7 @@ namespace SISE_ONE
             else
             SeekDirections(order, currBoard);
             AddBoardToFinished(currBoard);
-            visited++;
+            processed++;
             return false;
         }
 
