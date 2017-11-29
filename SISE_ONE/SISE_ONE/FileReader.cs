@@ -12,7 +12,7 @@ namespace SISE_ONE
         public static int[,] ReadBoard(string name)
         {
             int[,] newBoard = new int[4, 4];
-            TextReader reader = File.OpenText("F:/SISE/sise_test/Boards/" +name);
+            TextReader reader = File.OpenText(name);
             String sizeInput = reader.ReadLine();
             for (int i = 0; i < 4; i++)
             {
